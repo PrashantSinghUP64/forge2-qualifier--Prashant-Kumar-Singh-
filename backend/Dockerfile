@@ -24,8 +24,8 @@ WORKDIR /app
 # Copy application files
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# Remove stale lock file and install fresh for PHP 8.3
+RUN rm -f composer.lock && composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Create SQLite database file
 RUN mkdir -p database && touch database/database.sqlite
